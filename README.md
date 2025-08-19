@@ -40,7 +40,7 @@ Paste your HTML and instantly view all text in clear, editable boxes. Update con
 ---
 
 BlastBox Code by Ixavence. Open source license.  
-Made with ❤️ for developers worldwide.
+Made with ❤ for developers worldwide.
 
 ---
 
