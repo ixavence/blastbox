@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlastBox Code</title>
+    <link rel="stylesheet" href="style.css?v=1">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="loader"></div>
+    <div id="analyze-animation"></div>
+    <div class="container">
+
+        <a href="about.html"><i class='bx bxs-info-circle bx-color'></i></a>
+
+        <div class="header">
+            <h1>BlastBox Code</h1>
+            <p>Edit web pages effortlessly</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('input')"><i class='bx bx-code-alt'></i> Paste HTML</button>
+            <button class="tab" onclick="showTab('edit')"><i class='bx bxs-edit'></i> Edit Text</button>
+            <button class="tab" onclick="showTab('visual-edit')"><i class='bx bx-show'></i> Visual Edit Beta</button>
+            <button class="tab" onclick="showTab('preview')"><i class='bx bxs-slideshow'></i> Preview</button>
+            <button class="tab" onclick="showTab('download')"><i class='bx bxs-down-arrow-circle'></i> Download</button>
+            <button class="tab" onclick="showTab('themes')"><i class='bx bx-palette'></i> Themes</button>
+        </div>
+
+        <div id="input-tab" class="tab-content active">
+            <div class="form-group">
+                <label class="label"><i class='bx bxs-paste'></i> Paste HTML code:</label>
+                <textarea id="html-input" class="textarea" placeholder="Paste your HTML code here..."></textarea>
+            </div>
+            <button class="button" onclick="analyzeHTML()"><i class='bx bxs-rocket'></i> Analyze HTML</button>
+        </div>
+
+        <div id="edit-tab" class="tab-content">
+            <div id="text-search-container" style="display: none;">
+                <input type="text" id="text-search-input" placeholder="Szukaj tekstu, tagów lub ścieżek...">
+                <button id="clear-text-search">Wyczyść</button>
+                <div id="text-search-results"></div>
+            </div>
+            <div id="text-nodes-container">
+                <div class="alert alert-info">
+                    First paste HTML code and click "Analyze HTML"
+                </div>
+            </div>
+        </div>
+
+        <div id="visual-edit-tab" class="tab-content">
+            <div class="visual-edit-controls">
+                <div class="form-group">
+                    <label class="label"><i class='bx bx-palette'></i> Optional CSS Styling:</label>
+                    <div class="css-input-group">
+                        <textarea id="custom-css" class="textarea" placeholder="Add custom CSS here (optional)..." style="min-height: 150px;"></textarea>
+                        <div class="css-actions">
+                            <label class="button button-secondary" style="cursor: pointer;">
+                                <i class='bx bx-upload'></i> Upload CSS File
+                                <input type="file" id="css-file-input" accept=".css" style="display: none;" onchange="loadCSSFile(event)">
+                            </label>
+                            <button class="button" onclick="applyCSSToPreview()">
+                                <i class='bx bx-check'></i> Apply CSS
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="visual-edit-actions">
+                    <button class="button" onclick="startVisualEdit()" id="start-visual-edit">
+                        <i class='bx bx-play'></i> Start Visual Editing
+                    </button>
+                    <button class="button button-secondary" onclick="exitVisualEdit()" id="exit-visual-edit" style="display: none;">
+                        <i class='bx bx-x'></i> Exit Visual Mode
+                    </button>
+                    <button class="button" onclick="saveVisualChanges()" id="save-visual-changes" style="display: none;">
+                        <i class='bx bx-save'></i> Save Changes
+                    </button>
+                </div>
+            </div>
+
+            <div id="visual-edit-container">
+                <div class="alert alert-info">
+                    First analyze HTML, then click "Start Visual Editing" to begin
+                </div>
+            </div>
+        </div>
+
+        <div id="preview-tab" class="tab-content">
+            <div id="preview-container">
+                <div class="alert alert-info">
+                    First analyze HTML and make changes
+                </div>
+            </div>
+        </div>
+
+        <div id="download-tab" class="tab-content">
+            <div class="form-group">
+                <label class="label">Modified HTML:</label>
+                <textarea id="output-html" class="textarea" readonly></textarea>
+            </div>
+            <div class="button-group">
+                <button class="button" onclick="downloadHTML()">Download HTML file</button>
+                <button class="button button-secondary" onclick="copyToClipboard()">Copy to clipboard</button>
+            </div>
+        </div>
+
+        <div id="themes-tab" class="tab-content">
+            <div class="form-group">
+                <h3 style="color: rgb(var(--foreground)); margin-bottom: 1rem;">Theme Management</h3>
+
+                <div class="theme-actions" style="display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                    <button class="button" onclick="themeSystem.createNewTheme()">
+                        <i class='bx bx-plus'></i> Create New Theme
+                    </button>
+                    <button class="button button-secondary" onclick="themeSystem.exportCurrentTheme()">
+                        <i class='bx bx-export'></i> Export Current Theme
+                    </button>
+                    <label class="button button-secondary" style="cursor: pointer;">
+                        <i class='bx bx-import'></i> Import Theme JSON
+                        <input type="file" id="theme-import" accept=".json" style="display: none;"
+                            onchange="importThemeFile(event)">
+                    </label>
+                </div>
+
+                <div class="theme-actions" style="display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                    <a href="https://store.blastbox.sbs">
+                        <button class="button button-secondary">
+                            <i class='bx bxs-cart-download' ></i> Need more themes? Download them from the official store
+                        </button>
+                    </a>
+                </div>
+
+                <div id="theme-editor" style="display: none;">
+                    <h4 style="color: rgb(var(--foreground)); margin-bottom: 1rem;">Theme Editor</h4>
+                    <div class="form-group">
+                        <label class="label">Theme Name:</label>
+                        <input type="text" id="theme-name" class="input" placeholder="Enter theme name">
+                    </div>
+                    <div class="form-group">
+                        <label class="label">Theme JSON:</label>
+                        <textarea id="theme-json" class="textarea" placeholder="Theme configuration will appear here..."
+                            style="min-height: 400px;"></textarea>
+                    </div>
+                    <div class="button-group">
+                        <button class="button" onclick="themeSystem.saveTheme()">
+                            <i class='bx bx-save'></i> Save Theme
+                        </button>
+                        <button class="button button-secondary" onclick="themeSystem.previewTheme()">
+                            <i class='bx bx-show'></i> Preview Theme
+                        </button>
+                        <button class="button" style="background: rgb(var(--destructive));"
+                            onclick="themeSystem.cancelThemeEdit()">
+                            <i class='bx bx-x'></i> Cancel
+                        </button>
+                    </div>
+                </div>
+
+                <div id="installed-themes">
+                    <h4 style="color: rgb(var(--foreground)); margin-bottom: 1rem;">Installed Themes</h4>
+                    <div id="themes-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="theme-selector">
+            <select id="theme-select" class="input" style="width: auto; margin: 0.5rem;">
+                <option value="default">Default Theme</option>
+            </select>
+            <button class="button button-secondary" onclick="openThemeManager()">
+                <i class='bx bx-palette'></i> Manage Themes
+            </button>
+        </div>
+
+    </div>
+
+    <div id="theme-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Quick Theme Selector</h3>
+                <button class="modal-close" onclick="closeThemeManager()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="theme-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="load.js?v=1"></script>
+    <script src="script.js?v=1"></script>
+    <script src="visual-edit.js?v=1"></script>
+    <script src="theme-system.js?v=1"></script>
+</body>
+
+</html>
