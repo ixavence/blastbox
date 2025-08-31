@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlastBox Extensions</title>
+    <link rel="stylesheet" href="style.css?v=1">
+    <link rel="stylesheet" href="nav.css?v=1">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <a href="about.html"><i class='bx bxs-info-circle bx-color'></i></a>
+
+        <div class="header">
+            <h1>BlastBox Extensions</h1>
+            <p>Manage your custom JavaScript extensions</p>
+        </div>
+
+        <div id="extensions-tab" class="tab-content active">
+            <div class="form-group">
+                <h3 style="color: rgb(var(--foreground)); margin-bottom: 1rem;">Extension Management</h3>
+
+                <div class="theme-actions" style="display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                    <button class="button" onclick="extensionSystem.addNewExtension()">
+                        <i class='bx bx-plus'></i> Add New Extension
+                    </button>
+                </div>
+
+                <div id="extension-editor" style="display: none;">
+                    <h4 style="color: rgb(var(--foreground)); margin-bottom: 1rem;">Extension Editor</h4>
+                    <div class="form-group">
+                        <label class="label">Extension Name:</label>
+                        <input type="text" id="extension-name" class="input" placeholder="Enter extension name">
+                    </div>
+                    <div class="form-group">
+                        <label class="label">Script URL:</label>
+                        <input type="text" id="extension-url" class="input" placeholder="Enter JS file URL">
+                    </div>
+                    <div class="button-group">
+                        <button class="button" onclick="extensionSystem.saveExtension()">
+                            <i class='bx bx-save'></i> Save Extension
+                        </button>
+                        <button class="button" style="background: rgb(var(--destructive));" onclick="extensionSystem.cancelExtensionEdit()">
+                            <i class='bx bx-x'></i> Cancel
+                        </button>
+                    </div>
+                </div>
+
+                <div id="installed-extensions">
+                    <h4 style="color: rgb(var(--foreground)); margin-bottom: 1rem;">Installed Extensions</h4>
+                    <div id="extensions-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="nav">
+        <ul class="nav__list">
+            <a href="index.html" class="nav__link">
+                <i class="ri-home-5-line"></i>
+                <span class="nav__name"><i class='bx bxs-home-alt-2'></i></span>
+            </a>
+    
+            <a href="settings.html" class="nav__link active-link">
+                <i class="ri-user-line"></i>
+                <span class="nav__name"><i class='bx bxs-cog'></i></span>
+            </a>
+    
+            <a href="about.html" class="nav__link">
+                <i class="ri-chat-3-line"></i>
+                <span class="nav__name"><i class='bx bxs-info-circle'></i></span>
+            </a>
+        </ul>
+    </nav>
+    <div class="nav-toggle">
+        <i class="bx bx-low-vision"></i>
+    </div>
+    <!-- NAVIGATION -->
+
+    <script src="nav.js"></script>
+    <script src="extension-system.js"></script>
+</body>
+</html>

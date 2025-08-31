@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <BlastBox>
-    <Version>2.0.0</Version>
+    <Version>2.1.0</Version>
     <ReleaseDate>2025</ReleaseDate>
     <Description>Stable release of BlastBox Code</Description>
     <Author>Ixavence</Author>
     <License>MIT License</License>
     <Features>
-        <Feature>Improved performance</Feature>
+        <Feature>New improved navigation menu</Feature>
         <Feature>Bug fixes</Feature>
-        <Feature>Visual Edit Beta detection modified</Feature>
-        <Feature>Improved appearance</Feature>
+        <Feature>Extension support</Feature>
+        <Feature>Performance acceleration</Feature>
+        <Feature>Improved user interface</Feature>
+        <Feature>Enhanced security features</Feature>
+        <Feature>Compatible with Firefox</Feature>
+        <Feature>Stability improvements</Feature>
     </Features>
 </BlastBox>

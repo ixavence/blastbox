@@ -5,7 +5,24 @@
     <title>About BlastBox Code</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="nav.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+    <!-- Matomo -->
+    <script>
+        var _paq = window._paq = window._paq || [];
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+            var u="//analytics.ixavence.org/analytics/";
+            _paq.push(['setTrackerUrl', u+'matomo.php']);
+            _paq.push(['setSiteId', '11']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+        })();
+    </script>
+    <!-- End Matomo Code -->
 
     <style>
         body {
@@ -83,8 +100,6 @@
 <body>
     
     <div class="container">
-        
-        <a href="index.html"><i class='bx bxs-home-alt-2 bx-color'></i></a>
 
         <br><br>
 
@@ -94,6 +109,31 @@
         <div class="features" id="features"></div>
         <div class="footer" id="footer"></div>
     </div>
+
+    <!-- NAVIGATION -->
+    <nav class="nav">
+        <ul class="nav__list">
+            <a href="index.html" class="nav__link">
+                <i class="ri-home-5-line"></i>
+                <span class="nav__name"><i class='bx bxs-home-alt-2'></i></span>
+            </a>
+    
+            <a href="settings.html" class="nav__link">
+                <i class="ri-user-line"></i>
+                <span class="nav__name"><i class='bx bxs-cog'></i></span>
+            </a>
+    
+            <a href="about.html" class="nav__link active-link">
+                <i class="ri-chat-3-line"></i>
+                <span class="nav__name"><i class='bx bxs-info-circle'></i></span>
+            </a>
+        </ul>
+    </nav>
+    <div class="nav-toggle">
+        <i class="bx bx-low-vision"></i>
+    </div>
+    <!-- NAVIGATION -->
+
     <script>
         fetch('version.xml')
             .then(response => response.text())
@@ -127,6 +167,12 @@
             });
     </script>
     <script src="theme-system.js"></script>
+    <script src="nav.js"></script>
     <script src="load.js"></script>
+
+    <!-- Matomo Image Tracker-->
+    <img referrerpolicy="no-referrer-when-downgrade" src="https://analytics.ixavence.org/analytics/matomo.php?idsite=11&amp;rec=1" style="border:0" alt="" />
+    <!-- End Matomo -->
+
 </body>
 </html>

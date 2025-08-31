@@ -1,0 +1,103 @@
+.nav {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(25px) scale(0.95);
+    opacity: 0;
+    background: rgba(var(--card), 0.65);
+    backdrop-filter: blur(18px) saturate(140%);
+    border-radius: 1.5rem;
+    padding: 14px 28px;
+    display: flex;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.55);
+    border: 1px solid rgba(var(--primary), 0.2);
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    z-index: 999;
+}
+
+.nav.show {
+    transform: translateX(-50%) translateY(0) scale(1);
+    opacity: 1;
+}
+
+.nav.hide-scroll {
+    transform: translateX(-150%) translateY(25px) scale(0.95);
+    opacity: 0;
+}
+
+.nav.hide-click {
+    transform: translateX(-50%) translateY(25px) scale(0.95);
+    opacity: 0;
+}
+
+.nav__list {
+    display: flex;
+    list-style: none;
+    gap: 36px;
+    position: relative;
+}
+
+.nav__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: rgb(var(--muted-foreground));
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 6px 8px;
+}
+
+.nav__link i {
+    font-size: 1.3rem;
+    margin-bottom: 2px;
+    transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.nav__link:hover i {
+    transform: translateY(-2px) scale(1.05);
+    color: rgb(var(--primary));
+}
+
+.nav__link.active-link {
+    color: rgb(var(--primary));
+}
+
+.nav__link.active-link::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    width: 28px;
+    height: 3px;
+    background: rgb(var(--primary));
+    border-radius: 4px;
+    animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+    from { box-shadow: 0 0 4px rgb(var(--primary)); }
+    to { box-shadow: 0 0 12px rgb(var(--primary)); }
+}
+
+.nav-toggle {
+    position: fixed;
+    bottom: 28px;
+    left: 20px;
+    font-size: 1.6rem;
+    background: rgba(var(--card), 0.65);
+    backdrop-filter: blur(12px) saturate(140%);
+    border-radius: 50%;
+    padding: 8px 10px;
+    cursor: pointer;
+    color: rgb(var(--muted-foreground));
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease, color 0.3s ease;
+    z-index: 1000;
+}
+
+.nav-toggle:hover {
+    transform: scale(1.1);
+    color: rgb(var(--primary));
+}
